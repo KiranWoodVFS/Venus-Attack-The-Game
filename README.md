@@ -28,6 +28,10 @@ Here are the new things I have added:
 
 **Step 4:** Start server by `npm run dev` and use the link to open the level editor. 
 
+## How To Play
+
+Click on the bird (red circle) and pull back to launch the bird into the air. Try to hit the pigs (green circles) to kill them. If you kill all the pigs in the level it moves onto the next. Avoid hitting the eggs (yellow circles) as if they crack you lose the game.
+
 ## Project Link
 
 - https://github.com/KiranWoodVFS/Venus-Attack-The-Game
