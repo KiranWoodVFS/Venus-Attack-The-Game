@@ -1,0 +1,42 @@
+/*
+    Element Selectors
+*/
+
+body {
+    font-family: monospace;
+    height: 100vh;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+header {
+    padding: 2%;
+}
+
+main {
+    margin-bottom: 5%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 400%;
+    text-align: center;
+    text-decoration: underline;
+}
+
+canvas {
+    border-radius: 8px;
+    border: 2px dashed #555;
+    position: relative;
+    background: #ADD8E6;
+    overflow: hidden;
+    display: block;
+    margin: 20px auto;
+}
