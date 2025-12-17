@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>public</title>
+
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+    <header>
+        <h1>Venus Attack Level Editor</h1>
+    </header>
+
+    <main>
+        <selection class="flex-container">
+            <section id="level-info">
+                <h2>Level Info</h2>
+
+                <label>
+                    Level ID:
+                    <input type="text" id="level-id" placeholder="999" />
+                </label>
+
+                <div class="button-row">
+                    <button id="save-level">Save</button>
+                    <button id="load-level">Load</button>
+                    <button id="delete-level" class="danger">Delete</button>
+                </div>
+            </section>
+
+            <section id="builder-panel">
+                <h2>Add Objects</h2>
+
+                <div class="button-column">
+                    <button id="add-catapult">Add Catapult</button>
+                    <button id="add-pig">Add Venus the Pig</button>
+                    <button id="add-egg">Add Egg</button>
+                    <button id="add-triangle">Add Triangle</button>
+
+                    <!--Block Editor-->
+                    <button id="add-block">Add Block</button>
+                    <input type="range" min="1" max="200" id="block-width-id" placeholder="width" />
+                    <p id="block-width-text">block width: 100</p>
+                    <input type="range" min="1" max="200" id="block-height-id" placeholder="height" />
+                    <p id="block-height-text">block height: 100</p>
+                </div>
+            </section>
+        </selection>
+
+        <section id="editor-panel">
+            <h2>Level Canvas</h2>
+
+            <div id="editor"></div>
+
+            <p class="hint">Right-click to delete an object. Drag objects with your mouse.</p>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p id="note-text">&copy; Venus Attack a cool game that's totally not ripped off :)</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

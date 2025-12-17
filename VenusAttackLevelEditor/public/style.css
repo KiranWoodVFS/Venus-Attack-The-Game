@@ -1,0 +1,172 @@
+/*
+    Element Selectors
+*/
+
+body {
+    font-family: monospace;
+    height: 100vh;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+header {
+    padding: 2%;
+}
+
+main {
+    margin-bottom: 5%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 400%;
+    text-align: center;
+    text-decoration: underline;
+}
+
+h2 {
+    font-size: 200%;
+    text-decoration: underline;
+}
+
+button {
+    font-family: monospace;
+}
+
+input {
+    font-family: monospace;
+}
+
+/*
+    Class Selectors
+*/
+
+.main-content{
+    flex: 0 1 75%;
+    text-align: center;
+}
+
+.button-row {
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+    .button-column button {
+        margin-top: 5%;
+        display: inline-block;
+    }
+
+    .button-column input {
+        margin-top: 5%;
+        display: inline-block;
+    }
+
+.flex-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.block {
+    outline-color: #070707;
+    outline-style: solid;
+    position: absolute;
+}
+
+.egg {
+    position: absolute;
+    border-radius: 50%;
+    outline-color: #070707;
+    outline-style: solid;
+}
+
+
+/* Pig */
+
+.pig {
+    position: absolute;
+    border-radius: 50%;
+    outline-color: #070707;
+    outline-style: solid;
+}
+
+.eye {
+    border-radius: 50%;
+    position: absolute;
+}
+
+/* Catapult */
+
+.catapult {
+    display: inline-block;
+    position: absolute;
+}
+
+.catapult-base {
+    position: absolute;
+
+}
+
+.catapult-left {
+    position: absolute;
+}
+
+.catapult-right {
+    position: absolute;
+}
+
+.triangle {
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-right-style: solid;
+    border-right-color: transparent;
+    border-bottom-style: solid;
+    position: absolute;
+}
+/*
+    ID Selection
+*/
+#note-text {
+    text-align: center;
+}
+
+#editor-panel {
+    align-self: center;
+    flex: 1;
+}
+
+    #editor-panel h2 {
+        margin-top: 0;
+    }
+
+#editor {
+    width: 800px;
+    height: 600px;
+    border-radius: 8px;
+    border: 2px dashed #555;
+    position: relative;
+    background: #D3D3D3;
+    overflow: hidden;
+}
+
+#level-info {
+    margin: 5%;
+}
+
+#builder-panel {
+    margin-top: 20%;
+}
