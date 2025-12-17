@@ -16,7 +16,9 @@ Here are the new things I have added:
 - Catapult: The bird spawns wherever the catapult is placed
 - Egg: When hit by the bird it ends the game
 - Triangle: A different shape to create cool levels and give variety
-- Level reset: Now whenever the player fails a level, it restarts back to the first one
+- Level picker: Lets you pick which level youd like to play. There are default 3 (1, 2, 3). It is set to start at level 1.
+
+The level editor is included to create your own levels but you will need to manually transfer the levels folder.
 
 ## How To Use
 
@@ -30,7 +32,7 @@ Here are the new things I have added:
 
 ## How To Play
 
-Click on the bird (red circle) and pull back to launch the bird into the air. Try to hit the pigs (green circles) to kill them. If you kill all the pigs in the level it moves onto the next. Avoid hitting the eggs (yellow circles) as if they crack you lose the game.
+Click on the bird (red circle) and pull back to launch the bird into the air. Try to hit the pigs (green circles) to kill them. If you kill all the pigs in the level it you win! Avoid hitting the eggs (yellow circles) as if they crack you lose the game.
 
 ## Project Link
 

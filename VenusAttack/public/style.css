@@ -19,8 +19,6 @@ header {
 main {
     margin-bottom: 5%;
     text-align: center;
-    display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
@@ -39,4 +37,33 @@ canvas {
     overflow: hidden;
     display: block;
     margin: 20px auto;
+}
+
+button {
+    font-family: monospace;
+}
+
+input {
+    font-family: monospace;
+}
+
+/*
+    ID Selection
+*/
+
+#level-info {
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#level-id {
+    margin-top: 10%;
+}
+
+#load-level {
+    width: 15%;
+    margin-top: 3%;
+    display: inline-block;
 }

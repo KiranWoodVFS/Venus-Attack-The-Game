@@ -3,8 +3,10 @@
 	// Gets elements
 	const canvas = document.getElementById("game-canvas");
 	const ctx = canvas.getContext("2d");
-	const headerEl = document.querySelector("header");
-	const footerEl = document.querySelector("footer");
+
+	const $levelId = $('#level-id');
+
+
 
 	// Scale for the game
 	const SCALE = 30;
@@ -62,47 +64,12 @@
 	const EGG_RADIUS = 20 / SCALE;
 	const TRIANGLE_SIZE = 50;
 
-	let LevelsList = [];
-
-	// Adds the level to the level list
-	const addLevel = (obj, id) => {
-		LevelsList[id - 1] = obj;
-	}
-
-	// Gets the levels to add
-	const GetLevels = () => {
-		// Looks for 3 levels to add
-		for (i = 1; i < 4; i++) {
-			getLevel(i);
-		}
-	}
-
-	// Uses API to get a level
-	const getLevel = (id) => {
-		const url = '/api/v1/levels/' + encodeURIComponent(id);
-		let data;
-
-		$.ajax({
-			url,
-			method: 'GET',
-			contentType: 'application/json',
-			async: false,
-			success: function (response) {  // Succeeds in loading level
-				addLevel(response.objects || [], id); // Adds level to level list
-			},
-			error: function (xhr) { // Error loading level
-				const msg = xhr.responseJSON?.error || xhr.responseText || 'Unknown error';
-				alert('Error loading level: ' + msg);
-			}
-		});
-	}
-
-	GetLevels(); // Gets the levels
+	let Level = '';
 
 	// The state of the game
 	let state = {
-		levels: LevelsList,
-		currentLevel: 0,
+		currentLevel: Level,
+		LevelID: 1,
 		score: 0,
 		birdsRemaining: 3,
 		isLevelComplete: false,
@@ -123,6 +90,55 @@
 	const setState = (patch) => {
 		state = { ...state, ...patch };
 	};
+
+	// Adds the level to the level list
+	const addLevel = (obj) => {
+		Level = obj;
+		setState({
+			currentLevel: Level
+		});
+	}
+
+	// Button to load a level
+	$('#load-level').click(function () {
+		const id = $levelId.val().trim();
+
+		// Checks if a level has been entered
+		if (!id) {
+			alert('Please enter a Level ID to load.');
+			return;
+		}
+
+		// Gets and loads level
+		getLevel(id);
+		initLevel();
+	});
+
+	// Uses API to get a level
+	const getLevel = (id) => {
+
+		// Sets the new id for state
+		setState({
+			LevelID: id
+		});
+
+		const url = '/api/v1/levels/' + encodeURIComponent(id);
+
+		// Uses AJAX to get level data
+		$.ajax({
+			url,
+			method: 'GET',
+			contentType: 'application/json',
+			async: false,
+			success: function (response) {  // Succeeds in loading level
+				addLevel(response.objects || id); // Adds level to level list
+			},
+			error: function (xhr) { // Error loading level
+				const msg = xhr.responseJSON?.error || xhr.responseText || 'Unknown error';
+				alert('Error loading level: ' + msg);
+			}
+		});
+	}
 
 	// Resets bird timers
 	const resetBirdTimers = () => {
@@ -244,8 +260,6 @@
 		return body;
 	};
 
-
-
 	// Destroys the bird if it exists
 	const destroyBirdIfExists = () => {
 		if (state.bird) {
@@ -268,7 +282,7 @@
 	// ----------------
 
 	// Initializes the level
-	const initLevel = (levelIndex) => {
+	const initLevel = () => {
 		// Removes level complete timer
 		if (levelCompleteTimer) {
 			levelCompleteTimer = null;
@@ -283,7 +297,12 @@
 		clearWorldExceptGround();
 
 		// Gets level
-		const level = state.levels[levelIndex];
+		let level = state.currentLevel;
+
+		if (!level) {
+			getLevel(1); // Loads the first level there is no level chosen
+			level = state.currentLevel;
+		}
 
 		// Gets element data from level
 		const boxes = [];
@@ -318,7 +337,7 @@
 
 				// Creates triangle position
 				offsetX = object.x + (TRIANGLE_SIZE / 2);
-				offsetY = (canvas.height - object.y) - (TRIANGLE_SIZE / 2);
+				offsetY = (canvas.height - object.y) - (TRIANGLE_SIZE);
 
 				// Creates vertices of triangle
 				vec1 = Vec2(0 / SCALE, TRIANGLE_SIZE / SCALE);
@@ -366,22 +385,14 @@
 	// Resets the level
 	const resetLevel = () => initLevel(state.currentLevel);
 
-	// Moves to the next level
-	const nextLevel = () => {
-
-		// Moves to next level
-		const next = state.currentLevel + 1;
-		if (next < state.levels.length) {
-			setState({ currentLevel: next }); // Sets new state
-			initLevel(next); // Creates new level
-			return;
-		}
-
-		// If all levels are completed
-		alert("Congratulations. You've won life :)");
-		setState({ currentLevel: 0, score: 0 });
-		initLevel(0); // Restarts to first level
-	};
+	// Player has won level
+	const winLevel = () => {
+		levelCompleteTimer = setTimeout(() => {
+			levelCompleteTimer = null;
+			alert("Congrats!! Level Complete! :)");
+			initLevel(); // Restarts the level
+		}, 500);
+	}
 
 	// Game is over
 	const gameOver = () => {
@@ -627,11 +638,7 @@
 
 		// Stops level timer
 		if (!levelCompleteTimer) {
-			levelCompleteTimer = setTimeout(() => {
-				levelCompleteTimer = null;
-				alert("Level Complete!");
-				nextLevel();
-			}, 500);
+			winLevel();
 		};
 	};
 
@@ -849,7 +856,7 @@
 		ctx.fillStyle = "#000";
 		ctx.font = "15px Monospace";
 		ctx.fillText(`Score: ${state.score}`, 10, 20);
-		ctx.fillText(`Level: ${state.currentLevel}`, 10, 40);
+		ctx.fillText(`Level: ${state.LevelID}`, 10, 40);
 		ctx.fillText(`Birds Remaining: ${state.birdsRemaining}`, 10, 60);
 	};
 
@@ -877,7 +884,7 @@
 	};
 
 	// Starts level and loops
-	initLevel(state.currentLevel);
+	initLevel();
 	loop();
 
 })();
